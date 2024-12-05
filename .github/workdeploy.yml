@@ -1,0 +1,35 @@
+name: Deploy Vite + React to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Cambia 'main' si tu rama principal tiene otro nombre.
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # 1. Checkout del código fuente
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Configurar Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18' # Cambia a la versión que usas en tu proyecto
+
+      # 3. Instalar dependencias
+      - name: Install dependencies
+        run: npm install
+
+      # 4. Construir el proyecto
+      - name: Build the project
+        run: npm run build
+
+      # 5. Desplegar a GitHub Pages
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          personal_token: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+          publish_dir: ./dist
