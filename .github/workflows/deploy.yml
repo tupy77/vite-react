@@ -1,9 +1,9 @@
-name: Deploy Next.js to GitHub Pages
+name: Deploy Vite + React to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Cambia 'main' por la rama principal de tu repositorio si es diferente.
+      - main  # Cambia 'main' por la rama principal de tu repositorio
 
 jobs:
   build-and-deploy:
@@ -17,19 +17,19 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18' # O la versión que uses en tu proyecto
+          node-version: '18' # Cambia según la versión que uses
 
       # 3. Instalar dependencias
       - name: Install dependencies
         run: npm install
 
-      # 4. Generar archivos estáticos
-      - name: Build and export static site
-        run: npm run export
+      # 4. Construir el proyecto
+      - name: Build the project
+        run: npm run build
 
-      # 5. Subir a GitHub Pages
+      # 5. Deploy a GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./out
+          publish_dir: ./dist
